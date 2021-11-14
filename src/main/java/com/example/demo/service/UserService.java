@@ -18,6 +18,7 @@ public class UserService {
 		user.setUsername(form.getUsername());
 		user.setEmail(form.getEmail());
 		user.setPassword(form.getPassword());
+		user.setRole("ROLE_GENERAL");
 		userRepository.save(user);
 	}
 

@@ -33,4 +33,6 @@ public class MUser {
 	@CreationTimestamp
 	@Column(name = "created_at")
 	private LocalDateTime createTime;
+	
+	private String role;
 }
