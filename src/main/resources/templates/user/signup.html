@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>新規登録</title>
+</head>
+<body>
+	<header class="header">
+		<div class="header_bar row">
+			<h1 class="grid-6">
+				<a th:href="@{/}">PicTweet</a>
+			</h1>
+			<div class="grid-6">
+				<a class="post" th:href="@{/login}">ログイン</a>
+				<a class="post" th:href="@{/signup}">新規登録</a>
+			</div>
+		</div>
+	</header>
+	<div class="contents row">
+		<div class="container">
+			<h2>Sign up</h2>
+			<form class="new-user" th:action="@{/signup}" th:object="${user}" method="post">
+				<div class="field">
+					<label for="username">Name</label>
+					<br>
+					<input autofocus="autofocus" type="text" th:field="*{username}">
+				</div>
+				<div class="field">
+					<label for="email">Email</label>
+					<br>
+					<input type="email" th:field="*{email}">
+				</div>
+				<div class="field">
+					<label for="password">Password</label>
+					<br>
+					<input type="password" th:field="*{password}">
+				</div>
+				<div class="actions">
+					<input type="submit" name="commit" value="Sign up">
+				</div>
+			</form>
+		</div>
+	</div>
+	<footer>
+		<p>Copyright PicTweet 2019.</p>
+	</footer>
+</body>
+</html>
