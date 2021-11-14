@@ -1,29 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <title>pictweet</title>
 <link rel="stylesheet" th:href="@{/css/header.css}">
 </head>
 <body>
-	<header class="header">
-		<div class="header__bar row">
-			<h1 class="grid-6">
-				<a th:href="@{/}">PicTweet</a>
-			</h1>
-			<div class="grid-6">
-				<a class="post" th:href="@{/login}">ログイン</a>
-				<a class="post" th:href="@{/signup}">新規登録</a>
-			</div>
-		</div>
-	</header>
+	<div layout:replace="~{layout/header::header}"></div>
 	<form class="search-form" action="#">
 		<input placeholder="投稿を検索する" class="search-input" type="text" name="keyword" id="keyword">
 		<input type="submit" name="commit" value="検索" class="search-btn">
 	</form>
 	<div class="contents row"></div>
-	<footer>
-		<p>Copyright PicTweet 2019.</p>
-	</footer>
+	<div layout:replace="~{layout/footer::footer}"></div>
 </body>
 </html>

@@ -1,42 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <title>新規登録</title>
 <link rel="stylesheet" th:href="@{/css/header.css}">
 </head>
 <body>
-	<header class="header">
-		<div class="header__bar row">
-			<h1 class="grid-6">
-				<a th:href="@{/}">PicTweet</a>
-			</h1>
-			<div class="grid-6">
-				<a class="post" th:href="@{/login}">ログイン</a>
-				<a class="post" th:href="@{/signup}">新規登録</a>
-			</div>
-		</div>
-	</header>
+	<div layout:replace="~{layout/header::header}"></div>
 	<div class="contents row">
 		<div class="container">
 			<h2>Sign up</h2>
-			<form class="new-user" th:action="@{/signup}" th:object="${user}" method="post">
+			<form class="new-user" th:action="@{/signup}" th:object="${user}"
+				method="post">
 				<div class="field">
-					<label for="username" th:text="#{username}"></label>
-					<br>
-					<input autofocus="autofocus" type="text" th:field="*{username}" th:errorclass="is-invalid">
+					<label for="username" th:text="#{username}"></label> <br> <input
+						autofocus="autofocus" type="text" th:field="*{username}"
+						th:errorclass="is-invalid">
 					<div class="invalid-feedback" th:errors="*{username}"></div>
 				</div>
 				<div class="field">
-					<label for="email" th:text="#{email}"></label>
-					<br>
-					<input type="email" th:field="*{email}" th:errorclass="is-invalid">
+					<label for="email" th:text="#{email}"></label> <br> <input
+						type="email" th:field="*{email}" th:errorclass="is-invalid">
 					<div class="invalid-feeback" th:errors="*{email}"></div>
 				</div>
 				<div class="field">
-					<label for="password" th:text="#{password}"></label>
-					<br>
-					<input type="password" th:field="*{password}" th:errorclass="is-invalid">
+					<label for="password" th:text="#{password}"></label> <br> <input
+						type="password" th:field="*{password}" th:errorclass="is-invalid">
 					<div class="invalid-feedback" th:errors="*{password}"></div>
 				</div>
 				<div class="actions">
@@ -45,8 +35,6 @@
 			</form>
 		</div>
 	</div>
-	<footer>
-		<p>Copyright PicTweet 2019.</p>
-	</footer>
+	<div layout:replace="~{layout/footer::footer}"></div>
 </body>
 </html>
