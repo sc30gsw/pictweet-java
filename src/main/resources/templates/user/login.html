@@ -1,40 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <title>ログイン</title>
 <link rel="stylesheet" th:href="@{/css/header.css}">
 </head>
 <body>
-	<header class="header">
-		<div class="header__bar row">
-			<h1 class="grid-6">
-				<a th:href="@{/}">PicTweet</a>
-			</h1>
-			<div class="grid-6">
-				<a class="post" th:href="@{/login}">ログイン</a>
-				<a class="post" th:href="@{/signup}">新規登録</a>
-			</div>
-		</div>
-	</header>
+	<div layout:replace="~{layout/header::header}"></div>
 	<div class="contents row">
 		<div class="container">
 			<h2>Log in</h2>
 			<form class="new-user" th:action="@{/login}" method="post">
 				<div class="field">
-					<label for="email">Email</label>
-					<br>
-					<input autofocus="autofocus" type="email" name="email">
+					<label for="email">Email</label> <br> <input
+						autofocus="autofocus" type="email" name="email">
 				</div>
 				<div class="field">
-					<label for="password">Password</label>
-					<br>
-					<input type="password" name="password">
+					<label for="password">Password</label> <br> <input
+						type="password" name="password">
 				</div>
 				<div class="field">
-					<label for="remenber-me">Remember me</label>
-					<br>
-					<input type="checkbox" name="remember-me">
+					<label for="remenber-me">Remember me</label> <br> <input
+						type="checkbox" name="remember-me">
 				</div>
 				<div class="actions">
 					<input type="submit" name="commit" value="Log in">
@@ -42,8 +30,6 @@
 			</form>
 		</div>
 	</div>
-	<footer>
-		<p>Copyright PicTweet 2019.</p>
-	</footer>
+	<div layout:replace="~{layout/footer::footer}"></div>
 </body>
 </html>
