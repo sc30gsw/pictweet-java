@@ -30,5 +30,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/signup").permitAll()
 				.antMatchers("/login").permitAll()
 				.anyRequest().authenticated();
+		
+		//ログイン処理
+		http
+			.formLogin()
+				.loginProcessingUrl("/login")//ログイン処理のパス
+				.loginPage("/login")//ログインページの指定
+				.failureUrl("/login?error")//ログイン失敗時の遷移先の指定
+				.usernameParameter("email")
+				.passwordParameter("password")
+				.defaultSuccessUrl("/", true);//ログイン成功時の遷移先の指定
 	}
+
 }
