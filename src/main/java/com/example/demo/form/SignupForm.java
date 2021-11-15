@@ -5,6 +5,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.example.demo.validate.Unused;
+
 import lombok.Data;
 
 @Data
@@ -12,6 +14,7 @@ public class SignupForm {
 
 	@NotBlank
 	@Email
+	@Unused
 	private String email;
 	
 	@NotBlank
