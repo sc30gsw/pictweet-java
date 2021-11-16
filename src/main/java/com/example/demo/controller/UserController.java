@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +25,14 @@ public class UserController {
 	@GetMapping("/")
 	public String getTop() {
 		return "top";
+	}
+	
+	@GetMapping("/index")
+	public String getIndex(ModelMap model) {
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String name = user.getUsername();
+		model.addAttribute("username", name);
+        return "tweet/index";
 	}
 	
 	@GetMapping("/signup")
@@ -47,6 +58,6 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public String postLogin() {
-		return "redirect:/";
+		return "redirect:/index";
 	}
 }

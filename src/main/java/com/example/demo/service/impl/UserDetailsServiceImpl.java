@@ -36,7 +36,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		authorities.add(authority);
 		
 		//UserDetails作成
-		UserDetails userDetail = (UserDetails) new User(loginUser.getEmail(), loginUser.getPassword(), authorities);
+		UserDetails userDetail = (UserDetails) new User(loginUser.getUsername(), loginUser.getPassword(), authorities);
 		
 		return userDetail;
 	}
