@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <title></title>
@@ -15,12 +14,6 @@
 			<div class="grid-6">
 				<a class="post" th:href="@{/login}">ログイン</a>
 				<a class="post" th:href="@{/signup}">新規登録</a>
-			</div>
-			<div class="grid-6" sec:authorize="hasRole('ROLE_GENERAL')">
-				<form class="new-user" th:action="@{/logout}" method="post">
-					<button type="submit" class="logout-btn">ログアウト</button>
-				</form>
-				<a class="post" href="#">投稿する</a>
 			</div>
 		</div>
 	</header>
