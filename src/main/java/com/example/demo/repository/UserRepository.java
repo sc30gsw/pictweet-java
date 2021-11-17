@@ -8,4 +8,5 @@ import com.example.demo.entity.MUser;
 @Repository
 public interface UserRepository extends JpaRepository<MUser, Integer> {
 
+	 public MUser findByEmail(String email);
 }

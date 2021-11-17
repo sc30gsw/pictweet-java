@@ -12,6 +12,9 @@
 		<div class="container">
 			<h2>Log in</h2>
 			<form class="new-user" th:action="@{/login}" method="post">
+				<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+				th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+				class="text-danger"></p>
 				<div class="field">
 					<label for="email">Email</label> <br> <input
 						autofocus="autofocus" type="email" name="email">
