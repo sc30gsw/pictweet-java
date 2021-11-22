@@ -9,10 +9,11 @@
 <body>
 	<div layout:replace="~{layout/header::header}"></div>
 	<form class="search-form" action="#">
-		<input placeholder="投稿を検索する" class="search-input" type="text" name="keyword" id="keyword">
-		<input type="submit" name="commit" value="検索" class="search-btn">
+		<input placeholder="投稿を検索する" class="search-input" type="text"
+			name="keyword" id="keyword"> <input type="submit"
+			name="commit" value="検索" class="search-btn">
 	</form>
-	<div class="contents row"></div>
+	<div layout:replace="~{layout/content::content}"></div>
 	<div layout:replace="~{layout/footer::footer}"></div>
 </body>
 </html>

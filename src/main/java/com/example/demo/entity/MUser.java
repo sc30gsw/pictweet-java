@@ -16,7 +16,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email" )})
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class MUser {
 
 	@Id
@@ -37,4 +37,6 @@ public class MUser {
 	private LocalDateTime createTime;
 	
 	private String role;
+	
+	
 }

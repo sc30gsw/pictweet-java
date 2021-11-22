@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header class="header" layout:fragment="tweetHeader">
+		<div class="header__bar row">
+			<h1 class="grid-6">
+				<a th:href="@{/index}">PicTweet</a>
+			</h1>
+			<div class="user_nav grid-6">
+				<span><p class="header-username" th:text="${username}"></p>
+					<ul class="user__info">
+						<li><a href="#">マイページ</a>
+							<form th:action="@{/logout}" method="post">
+								<button type="submit" class="logout-btn">ログアウト</button>
+							</form></li>
+					</ul> 
+				</span> 
+				<a class="post" th:href="@{/new}">投稿する</a>
+			</div>
+		</div>
+	</header>
+</body>
+</html>

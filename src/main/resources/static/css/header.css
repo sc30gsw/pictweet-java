@@ -1017,3 +1017,7 @@ footer p {
 #role-form {
 	display:flex;
 }
+
+.name {
+	color: lightgray;
+}

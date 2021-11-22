@@ -3,17 +3,17 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
-<title>pictweet</title>
+<title>PicTweet</title>
 <link rel="stylesheet" th:href="@{/css/header.css}">
 </head>
 <body>
 	<div layout:replace="~{layout/tweetHeader::tweetHeader}"></div>
-	<form class="search-form" action="#">
-		<input placeholder="投稿を検索する" class="search-input" type="text"
-			name="keyword" id="keyword"> <input type="submit"
-			name="commit" value="検索" class="search-btn">
-	</form>
-	<div layout:replace="~{layout/content::content}"></div>
+	<div class="contents row">
+  		<div class="success">
+    		<h3>投稿が完了しました。</h3>
+    		<a class="btn" th:href="@{/index}">投稿一覧へ戻る</a>
+  		</div>
+	</div>
 	<div layout:replace="~{layout/footer::footer}"></div>
 </body>
 </html>
