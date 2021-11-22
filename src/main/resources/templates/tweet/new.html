@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
-<title>pictweet</title>
+<title>PicTweet</title>
 <link rel="stylesheet" th:href="@{/css/header.css}">
 </head>
 <body>
@@ -15,24 +15,30 @@
 			<div class="user_nav grid-6">
 				<span><p class="header-username" th:text="${username}"></p>
 					<ul class="user__info">
-						<li>
-							<a href="#">マイページ</a>
+						<li><a href="#">マイページ</a>
 							<form th:action="@{/logout}" method="post">
 								<button type="submit" class="logout-btn">ログアウト</button>
-							</form>
-						</li>
-					</ul>
+							</form></li>
+					</ul> 
 				</span> 
-				<a class="post" th:href="@{/new}">投稿する</a>
+				<a class="post" href="#">投稿する</a>
 			</div>
 		</div>
 	</header>
-	<form class="search-form" action="#">
-		<input placeholder="投稿を検索する" class="search-input" type="text"
-			name="keyword" id="keyword"> <input type="submit"
-			name="commit" value="検索" class="search-btn">
-	</form>
-	<div class="contents row"></div>
+	<div class="contents row">
+		<div class="container">
+			<form th:action="@{/new}" th:object="${tweetForm}" method="post">
+				<h3>投稿する</h3>
+				<input placeholder="Image Url" type="text" th:field="*{imageUrl}">
+				<div class="field">
+					<textarea placeholder="text" rows="10" th:field="*{text}"
+						th:errorclass="is-invalid"></textarea>
+					<div class="invalid-feedback" th:errors="*{text}"></div>
+				</div>
+				<input type="submit" name="commit" value="SEND">
+			</form>
+		</div>
+	</div>
 	<div layout:replace="~{layout/footer::footer}"></div>
 </body>
 </html>
