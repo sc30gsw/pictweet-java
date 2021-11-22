@@ -1,8 +1,7 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.form.SignupForm;
 import com.example.demo.service.UserService;
+import com.example.demo.service.impl.SimpleLoginUser;
 
 @Controller
 @RequestMapping("/")
@@ -28,9 +28,8 @@ public class UserController {
 	}
 	
 	@GetMapping("/index")
-	public String getIndex(Model model) {
-		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String name = user.getUsername();
+	public String getIndex(Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
+		String name = loginUser.getUser().getUsername();
 		model.addAttribute("username", name);
         return "tweet/index";
 	}
