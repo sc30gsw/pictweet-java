@@ -1,7 +1,5 @@
 package com.example.demo.validate;
 
-import java.util.Optional;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
@@ -20,7 +18,7 @@ public class UnusedValidator implements ConstraintValidator<Unused, String> {
  
     public boolean isValid(String value, ConstraintValidatorContext context) {
  
-        Optional<MUser> email = userService.findByEmail(value); // ここのvalueは入力値
+        MUser email = userService.findByEmail(value).orElse(null); // ここのvalueは入力値
         if(email == null){
         	return true;
         } 

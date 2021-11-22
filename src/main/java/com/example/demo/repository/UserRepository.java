@@ -11,4 +11,5 @@ import com.example.demo.entity.MUser;
 public interface UserRepository extends JpaRepository<MUser, Integer> {
 
 	 public Optional<MUser> findByEmail(String email);
+	 
 }
