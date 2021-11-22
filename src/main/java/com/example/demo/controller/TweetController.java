@@ -30,7 +30,7 @@ public class TweetController {
 		return "tweet/new";
 	}
 
-	@PostMapping("/new")
+	@PostMapping("/comfirm")
 	public String postNew(@Validated @ModelAttribute("tweetForm") TweetForm form, BindingResult result, Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
 		String name = loginUser.getUser().getUsername();
 		model.addAttribute("username", name);
@@ -41,6 +41,6 @@ public class TweetController {
 
 		tweetService.setTweet(form, loginUser);
 
-		return "tweet/index";
+		return "tweet/comfirm";
 	}
 }

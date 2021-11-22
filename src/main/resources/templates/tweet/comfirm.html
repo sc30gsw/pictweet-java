@@ -26,18 +26,10 @@
 		</div>
 	</header>
 	<div class="contents row">
-		<div class="container">
-			<form th:action="@{/comfirm}" th:object="${tweetForm}" method="post">
-				<h3>投稿する</h3>
-				<input placeholder="Image Url" type="text" th:field="*{imageUrl}">
-				<div class="field">
-					<textarea placeholder="text" rows="10" th:field="*{text}"
-						th:errorclass="is-invalid"></textarea>
-					<div class="invalid-feedback" th:errors="*{text}"></div>
-				</div>
-				<input type="submit" name="commit" value="SEND">
-			</form>
-		</div>
+  		<div class="success">
+    		<h3>投稿が完了しました。</h3>
+    		<a class="btn" th:href="@{/index}">投稿一覧へ戻る</a>
+  		</div>
 	</div>
 	<div layout:replace="~{layout/footer::footer}"></div>
 </body>
