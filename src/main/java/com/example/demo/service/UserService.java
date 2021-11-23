@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.MUser;
 import com.example.demo.form.SignupForm;
@@ -19,6 +20,7 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Transactional
 	public void setUser(SignupForm form) {
 		MUser user = new MUser();
 		user.setUsername(form.getUsername());
