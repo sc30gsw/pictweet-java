@@ -9,7 +9,7 @@
 	<div class="contents row" th:each="tweet: ${tweetList}"
 		layout:fragment="content">
 		<div class="content_post"
-			style="background-image: url(th:text=${tweet.imageUrl});">
+			th:style="'background:url(' + ${tweet.imageUrl} + ');'">
 			<div class="more">
 				<span> <img src="'arrow_top.png'">
 				</span>
