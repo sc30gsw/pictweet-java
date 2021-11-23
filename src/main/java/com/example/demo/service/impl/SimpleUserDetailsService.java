@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,11 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class SimpleUserDetailsService implements UserDetailsService {
-  private final UserRepository userRepository;
-
-  public SimpleUserDetailsService(UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
+	
+	@Autowired
+	private UserRepository userRepository;
 
   /**
    * メールアドレスで検索したユーザーのuserエンティティをSimpleLoginUserクラスのインスタンスへ変換する
