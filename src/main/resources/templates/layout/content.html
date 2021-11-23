@@ -11,10 +11,10 @@
 		<div class="content_post"
 			th:style="'background:url(' + ${tweet.imageUrl} + ');'">
 			<div class="more">
-				<span> <img src="'arrow_top.png'">
+				<span> <i class="fas fa-ellipsis-v menu-icon"></i>
 				</span>
 				<ul class="more_list">
-					<li><a href="#">詳細</a></li>
+					<li><a th:href="@{'/detail/'+${tweet.tweetId}}">詳細</a></li>
 					<li><a href="#">編集</a></li>
 					<li><a href="#">削除</a></li>
 				</ul>
