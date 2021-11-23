@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<div class="contents row" th:each="tweet: ${tweetList}" layout:fragment="content">
-		<div class="content_post" style="background-image: url(th:text=${tweet.imageUrl});">
+	<div class="contents row" th:each="tweet: ${tweetList}"
+		layout:fragment="content">
+		<div class="content_post"
+			style="background-image: url(th:text=${tweet.imageUrl});">
 			<div class="more">
-				<span>
-					<img src="'arrow_top.png'">
+				<span> <img src="'arrow_top.png'">
 				</span>
 				<ul class="more_list">
-					<li><a href="#">詳細</a></li> 
+					<li><a href="#">詳細</a></li>
 					<li><a href="#">編集</a></li>
-					<li><a href="#">削除</a></li> 
+					<li><a href="#">削除</a></li>
 				</ul>
 			</div>
 			<p th:text="${tweet.text}"></p>
-			<a href="#">
-				<span class="name">
-					投稿者<span th:text="${tweet.user.username}"></span>
-				</span>
+			<a href="#"> <span class="name"> 投稿者<span
+					th:text="${tweet.user.username}"></span>
+			</span>
 			</a>
 		</div>
 	</div>
