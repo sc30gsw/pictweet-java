@@ -1,12 +1,15 @@
 package com.example.demo.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -37,6 +40,10 @@ public class MUser {
 	private LocalDateTime createTime;
 	
 	private String role;
+	
+	@OneToMany
+	@JoinColumn(name = "user_id", insertable = false, updatable = false)
+	private List<MTweet> tweetList;
 	
 	
 }
