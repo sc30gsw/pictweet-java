@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -8,9 +9,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.entity.MTweet;
 import com.example.demo.form.TweetForm;
 import com.example.demo.service.TweetService;
 import com.example.demo.service.impl.SimpleLoginUser;
@@ -49,5 +52,19 @@ public class TweetController {
 		return "tweet/comfirm";
 	}
 	
-	/**投稿取得(1件)*/
+	/**投稿詳細画面に遷移*/
+	@GetMapping("/detail/{tweetId}")
+	public String getTweet(@PathVariable("tweetId") Integer tweetId, Model model, TweetForm form, @AuthenticationPrincipal SimpleLoginUser loginUser) {
+		
+		//投稿1件取得
+		MTweet tweet = tweetService.getTweetOne(tweetId);
+		
+		//MTweetをformに変換
+		ModelMapper modelMapper = new ModelMapper();
+		form = modelMapper.map(tweet, TweetForm.class);
+		
+		model.addAttribute("tweetForm", form);
+		
+		return "tweet/detail";
+	}
 }
