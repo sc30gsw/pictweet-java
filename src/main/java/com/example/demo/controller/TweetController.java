@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -54,17 +53,21 @@ public class TweetController {
 	
 	/**投稿詳細画面に遷移*/
 	@GetMapping("/detail/{tweetId}")
-	public String getTweet(@PathVariable("tweetId") Integer tweetId, Model model, TweetForm form, @AuthenticationPrincipal SimpleLoginUser loginUser) {
-		
+	public String getTweet(@PathVariable("tweetId") Integer tweetId, Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
 		//投稿1件取得
 		MTweet tweet = tweetService.getTweetOne(tweetId);
+		model.addAttribute("tweet", tweet);
 		
-		//MTweetをformに変換
-		ModelMapper modelMapper = new ModelMapper();
-		form = modelMapper.map(tweet, TweetForm.class);
+		//ログインユーザーであればdetail.htmlに遷移
+		if(loginUser != null) {
+			//ログインユーザー情報(ユーザー名)取得
+			String name = loginUser.getUser().getUsername();
+			model.addAttribute("username", name);
+			
+			return "tweet/detail";
+		}
 		
-		model.addAttribute("tweetForm", form);
-		
-		return "tweet/detail";
+		//未ログインユーザーの遷移先
+		return "tweet/_detail";
 	}
 }
