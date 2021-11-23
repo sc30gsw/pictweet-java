@@ -20,6 +20,7 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	/**ユーザー登録機能*/
 	@Transactional
 	public void setUser(SignupForm form) {
 		MUser user = new MUser();
@@ -32,6 +33,7 @@ public class UserService {
 		userRepository.save(user);
 	}
 
+	/**メールアドレスでユーザー検索*/
 	public Optional<MUser> findByEmail(String email) {		
 		return userRepository.findByEmail(email);
 	}

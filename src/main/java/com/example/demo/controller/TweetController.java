@@ -22,16 +22,20 @@ public class TweetController {
 	@Autowired
 	private TweetService tweetService;
 
+	/**新規投稿画面に遷移*/
 	@GetMapping("/new")
 	public String getNew(@ModelAttribute("tweetForm") TweetForm form, Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
+		//ログインユーザー情報(ユーザー名)取得
 		String name = loginUser.getUser().getUsername();
 		model.addAttribute("username", name);
 
 		return "tweet/new";
 	}
 
+	/**投稿機能*/
 	@PostMapping("/comfirm")
 	public String postNew(@Validated @ModelAttribute("tweetForm") TweetForm form, BindingResult result, Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
+		//ログインユーザー情報(ユーザー名)取得
 		String name = loginUser.getUser().getUsername();
 		model.addAttribute("username", name);
 
@@ -39,8 +43,11 @@ public class TweetController {
 			return "tweet/new";
 		}
 
+		//投稿機能
 		tweetService.setTweet(form, loginUser);
 
 		return "tweet/comfirm";
 	}
+	
+	/**投稿取得(1件)*/
 }

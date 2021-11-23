@@ -29,55 +29,68 @@ public class UserController {
 	@Autowired
 	private TweetService tweetService;
 	
+	/**トップページに遷移*/
 	@GetMapping("/")
 	public String getTop(Model model) {
 		
+		//全投稿取得
 		List<MTweet> tweetList = tweetService.findAllTweets();
 		model.addAttribute("tweetList", tweetList);
 		
 		return "top";
 	}
 	
+	/**ユーザー認証後のトップページに遷移*/
 	@GetMapping("/index")
 	public String getIndex(Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
+		//ログインユーザー情報(ユーザー名)取得
 		String name = loginUser.getUser().getUsername();
 		model.addAttribute("username", name);
 		
+		//全投稿取得
 		List<MTweet> tweetList = tweetService.findAllTweets();
 		model.addAttribute("tweetList", tweetList);
 		
         return "tweet/index";
 	}
 	
+	/**ユーザー登録画面に遷移*/
 	@GetMapping("/signup")
 	public String getSignup(@ModelAttribute("user") SignupForm form) {
 		return "user/signup";
 	}
 	
+	/**ユーザー登録機能*/
 	@PostMapping("/signup")
 	public String postSignup(@Validated @ModelAttribute("user") SignupForm form, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "user/signup";
 		}
 		
+		//ユーザー登録
 		userService.setUser(form);
 		
+		//フォームに入力されたユーザー名取得
 		String username = form.getUsername();
 		model.addAttribute("username", username);
 		
+		//全投稿取得
 		List<MTweet> tweetList = tweetService.findAllTweets();
 		model.addAttribute("tweetList", tweetList);
 		
 		return "tweet/index";
 	}
 
+	/**ログイン画面に遷移*/
 	@GetMapping("/login")
 	public String getLogin() {
 		return "user/login";
 	}
 	
+	/**ログイン機能*/
 	@PostMapping("/login")
 	public String postLogin(Model model) {
+		//全投稿取得
 		List<MTweet> tweetList = tweetService.findAllTweets();
 		model.addAttribute("tweetList", tweetList);
 		
