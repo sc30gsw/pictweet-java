@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>PicTweet</title>
+<link rel="stylesheet" th:href="@{/css/header.css}">
+<link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/all.min.css}" />
+</head>
+<body>
+	<div th:if="${username != null}">
+		<div layout:replace="~{layout/tweetHeader::tweetHeader}"></div>
+	</div>
+	<div class="contents row">
+		<form th:action="@{/detail}" th:object="${tweet}" method="post">
+			
+			<div class="content_post"
+				th:style="'background:url(' + ${tweet.imageUrl} + ');'">
+				<div class="more">
+					<span><i class="fas fa-ellipsis-v menu-icon"></i></span>
+					<ul class="more_list">
+						<li><a href="#">編集</a></li>
+						<li><a href="#">削除</a></li>
+					</ul>
+				</div>
+				<p th:field="*{text}"></p>
+				<a href="#"> 
+					<span class="name">
+						投稿者<span th:text="${tweet.user.username}"></span>
+					</span>
+				</a>
+			</div>
+		</form>
+		<div class="container">
+			<form>
+				<textarea placeholder="コメントする" rows="2"></textarea>
+				<input type="submit" value="SEND">
+			</form>
+			<strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong> 
+			<div class="comments">
+				<h4>＜コメント一覧＞</h4>
+				<!-- <% @comments.each do |comment| %> -->
+				<p>
+					<strong><!-- <%= link_to comment.user.nickname, "/users/#{comment.user_id}" %> -->：</strong> 
+					<!--<%= comment.text %> -->
+				</p>
+			</div>
+		</div>
+	</div>
+	<div layout:replace="~{layout/footer::footer}"></div>
+</body>
+</html>
