@@ -74,5 +74,29 @@ public class TweetController {
 		return "tweet/_detail";
 	}
 
+	/**投稿編集画面に遷移*/
+	@GetMapping("/edit/{tweetId}")
+	public String getEdit(@PathVariable("tweetId") Integer tweetId, Model model,
+			@AuthenticationPrincipal SimpleLoginUser loginUser) {
+		//ログインユーザー情報(ユーザー名)取得
+		String name = loginUser.getUser().getUsername();
+		model.addAttribute("username", name);
+
+		//投稿1件取得
+		MTweet tweet = tweetService.getTweetOne(tweetId);
+
+		//ログインユーザーID取得
+		Integer userId = loginUser.getUser().getUserId();
+		//投稿者のユーザーID取得
+		Integer tweetUserId = tweet.getUserId();
+
+		//ログインユーザーと投稿者が同じなら編集画面に遷移
+		if (userId == tweetUserId) {
+			model.addAttribute("tweet", tweet);
+			return "tweet/edit";
+		}
+
+		return "redirect:/index";
+	}
 	
 }
