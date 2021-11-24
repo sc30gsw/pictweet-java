@@ -15,8 +15,8 @@
 			<div class="content_post"
 				th:style="'background:url(' + ${tweet.imageUrl} + ');'">
 				<div class="more">
-					<span><i class="fas fa-ellipsis-v menu-icon"></i></span>
-					<ul class="more_list">
+					<span th:if="${userId == tweet.userId}"><i class="fas fa-ellipsis-v menu-icon"></i></span>
+					<ul class="more_list" th:if="${userId == tweet.userId}">
 						<li><a th:href="@{'/edit/'+${tweet.tweetId}}">編集</a></li>
 						<li><a href="#">削除</a></li>
 					</ul>

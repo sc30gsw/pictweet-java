@@ -47,6 +47,10 @@ public class UserController {
 		String name = loginUser.getUser().getUsername();
 		model.addAttribute("username", name);
 		
+		//ログインユーザーID取得
+		Integer userId = loginUser.getUser().getUserId();
+		model.addAttribute("userId", userId);
+		
 		//全投稿取得
 		List<MTweet> tweetList = tweetService.findAllTweets();
 		model.addAttribute("tweetList", tweetList);
@@ -90,9 +94,6 @@ public class UserController {
 	/**ログイン機能*/
 	@PostMapping("/login")
 	public String postLogin(Model model) {
-		//全投稿取得
-		List<MTweet> tweetList = tweetService.findAllTweets();
-		model.addAttribute("tweetList", tweetList);
 		
 		return "redirect:/index";
 	}

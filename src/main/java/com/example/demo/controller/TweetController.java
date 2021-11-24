@@ -66,7 +66,11 @@ public class TweetController {
 			//ログインユーザー情報(ユーザー名)取得
 			String name = loginUser.getUser().getUsername();
 			model.addAttribute("username", name);
-
+			
+			//ログインユーザーID取得
+			Integer userId = loginUser.getUser().getUserId();
+			model.addAttribute("userId", userId);
+			
 			return "tweet/detail";
 		}
 
