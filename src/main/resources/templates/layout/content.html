@@ -15,7 +15,7 @@
 				</span>
 				<ul class="more_list">
 					<li><a th:href="@{'/detail/'+${tweet.tweetId}}">詳細</a></li>
-					<li th:if="${username != null}"><a href="#">編集</a></li>
+					<li th:if="${username != null && userId == tweet.userId}"><a th:href="@{'/edit/'+${tweet.tweetId}}">編集</a></li>
 					<li th:if="${username != null}"><a href="#">削除</a></li>
 				</ul>
 			</div>

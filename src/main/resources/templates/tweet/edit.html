@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>PicTweet</title>
+<link rel="stylesheet" th:href="@{/css/header.css}">
+</head>
+<body>
+	<div layout:replace="~{layout/tweetHeader::tweetHeader}"></div>
+	<div class="contents row">
+		<div class="container">
+			<form th:action="@{'/edit/'+${tweet.tweetId}+'/update'}" th:object="${tweet}" method="post">
+				<h3>編集する</h3>
+				<div class="field">
+					<input placeholder="Image Url" type="text" th:field="*{imageUrl}" th:errorclass="is-invalid">
+					<div class="invalid-feedback" th:errors="*{imageUrl}"></div>
+				</div>
+				<div class="field">
+					<textarea placeholder="text" rows="10" th:field="*{text}" th:errorclass="is-invalid"></textarea>
+					<div class="invalid-feedback" th:errors="*{text}"></div>
+				</div>
+				<input type="submit" name="commit" value="SEND">
+			</form>
+		</div>
+	</div>
+	<div layout:replace="~{layout/footer::footer}"></div>
+</body>
+</html>
