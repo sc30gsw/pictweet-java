@@ -10,9 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.URL;
 
 import lombok.Data;
 
@@ -26,9 +28,11 @@ public class MTweet {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer tweetId;
 	
+	@NotBlank
 	private String text;
 	
 	@Column(name = "image")
+	@URL
 	private String imageUrl;
 	
 	@Column(name = "user_id")
