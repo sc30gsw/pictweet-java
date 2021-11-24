@@ -26,7 +26,8 @@ public class TweetController {
 
 	/**新規投稿画面に遷移*/
 	@GetMapping("/new")
-	public String getNew(@ModelAttribute("tweetForm") TweetForm form, Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
+	public String getNew(@ModelAttribute("tweetForm") TweetForm form, Model model,
+			@AuthenticationPrincipal SimpleLoginUser loginUser) {
 		//ログインユーザー情報(ユーザー名)取得
 		String name = loginUser.getUser().getUsername();
 		model.addAttribute("username", name);
@@ -36,7 +37,8 @@ public class TweetController {
 
 	/**投稿機能*/
 	@PostMapping("/comfirm")
-	public String postNew(@Validated @ModelAttribute("tweetForm") TweetForm form, BindingResult result, Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
+	public String postNew(@Validated @ModelAttribute("tweetForm") TweetForm form, BindingResult result, Model model,
+			@AuthenticationPrincipal SimpleLoginUser loginUser) {
 		//ログインユーザー情報(ユーザー名)取得
 		String name = loginUser.getUser().getUsername();
 		model.addAttribute("username", name);
@@ -50,24 +52,27 @@ public class TweetController {
 
 		return "tweet/comfirm";
 	}
-	
+
 	/**投稿詳細画面に遷移*/
 	@GetMapping("/detail/{tweetId}")
-	public String getTweet(@PathVariable("tweetId") Integer tweetId, Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
+	public String getTweet(@PathVariable("tweetId") Integer tweetId, Model model,
+			@AuthenticationPrincipal SimpleLoginUser loginUser) {
 		//投稿1件取得
 		MTweet tweet = tweetService.getTweetOne(tweetId);
 		model.addAttribute("tweet", tweet);
-		
+
 		//ログインユーザーであればdetail.htmlに遷移
-		if(loginUser != null) {
+		if (loginUser != null) {
 			//ログインユーザー情報(ユーザー名)取得
 			String name = loginUser.getUser().getUsername();
 			model.addAttribute("username", name);
-			
+
 			return "tweet/detail";
 		}
-		
+
 		//未ログインユーザーの遷移先
 		return "tweet/_detail";
 	}
+
+	
 }
