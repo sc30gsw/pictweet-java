@@ -41,4 +41,15 @@ public class TweetService {
 		
 		return tweet;
 	}
+	
+	/**投稿更新機能*/
+	@Transactional
+	public void editTweet(TweetForm form, @AuthenticationPrincipal SimpleLoginUser loginUser, Integer tweetId) {
+		Optional<MTweet> option = tweetRepository.findById(tweetId);
+		MTweet tweet = option.orElse(null);
+		tweet.setUserId(loginUser.getUser().getUserId());
+		tweet.setText(form.getText());
+		tweet.setImageUrl(form.getImageUrl());
+		tweetRepository.save(tweet);
+	}
 }

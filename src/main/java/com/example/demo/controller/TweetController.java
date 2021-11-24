@@ -43,6 +43,7 @@ public class TweetController {
 		String name = loginUser.getUser().getUsername();
 		model.addAttribute("username", name);
 
+		//formのバリデーションチェック
 		if (result.hasErrors()) {
 			return "tweet/new";
 		}
@@ -66,11 +67,11 @@ public class TweetController {
 			//ログインユーザー情報(ユーザー名)取得
 			String name = loginUser.getUser().getUsername();
 			model.addAttribute("username", name);
-			
+
 			//ログインユーザーID取得
 			Integer userId = loginUser.getUser().getUserId();
 			model.addAttribute("userId", userId);
-			
+
 			return "tweet/detail";
 		}
 
@@ -102,5 +103,25 @@ public class TweetController {
 
 		return "redirect:/index";
 	}
-	
+
+	/**投稿更新機能*/
+	@PostMapping("/edit/{tweetId}/update")
+	public String putEdit(@PathVariable("tweetId") Integer tweetId, @ModelAttribute("tweetForm") TweetForm form,
+			@Validated @ModelAttribute("tweet") MTweet tweet, BindingResult result, Model model,
+			@AuthenticationPrincipal SimpleLoginUser loginUser) {
+		//ログインユーザー情報(ユーザー名)取得
+		String name = loginUser.getUser().getUsername();
+		model.addAttribute("username", name);
+
+		//MTweetのバリデーションチェック
+		if (result.hasErrors()) {
+			return "tweet/edit";
+		}
+
+		//更新機能
+		tweetService.editTweet(form, loginUser, tweetId);
+
+		return "tweet/update";
+	}
+
 }
