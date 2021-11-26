@@ -17,7 +17,10 @@ import com.example.demo.form.TweetForm;
 import com.example.demo.service.TweetService;
 import com.example.demo.service.impl.SimpleLoginUser;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 @RequestMapping("/")
 public class TweetController {
 
@@ -118,8 +121,13 @@ public class TweetController {
 			return "tweet/edit";
 		}
 
-		//更新機能
-		tweetService.editTweet(form, loginUser, tweetId);
+		try {
+			//更新機能
+			tweetService.editTweet(form, loginUser, tweetId);
+		} catch (Exception e) {
+			log.error("投稿更新でエラー");
+		}
+		
 
 		return "tweet/update";
 	}

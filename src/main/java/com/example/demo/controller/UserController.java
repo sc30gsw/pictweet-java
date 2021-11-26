@@ -19,7 +19,10 @@ import com.example.demo.service.TweetService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.impl.SimpleLoginUser;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 @RequestMapping("/")
 public class UserController {
 	
@@ -71,6 +74,8 @@ public class UserController {
 			return "user/signup";
 		}
 		
+		log.info(form.toString());
+		
 		//ユーザー登録
 		userService.setUser(form);
 		
@@ -94,7 +99,7 @@ public class UserController {
 	/**ログイン機能*/
 	@PostMapping("/login")
 	public String postLogin(Model model) {
-		
+		log.info("ログアウト");
 		return "redirect:/index";
 	}
 	
