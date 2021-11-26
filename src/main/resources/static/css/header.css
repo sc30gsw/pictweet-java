@@ -1025,3 +1025,34 @@ footer p {
 .menu-icon {
 	color: lightgray;
 }
+
+.delete-list {
+	padding: 5px 0px;
+}
+
+.delete-list:hover {
+	display: block;
+	background-color: #84d3ef;
+}
+
+.delete-list:hover .btn-delete {
+	color: white;
+}
+
+.btn-delete {
+	color: #666;
+	background-color: transparent;
+	border: none;
+    -moz-transition-property: all;
+    -o-transition-property: all;
+    -webkit-transition-property: all;
+    transition-property: all;
+    -moz-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -moz-transition-timing-function: linear;
+    -o-transition-timing-function: linear;
+    -webkit-transition-timing-function: linear;
+    transition-timing-function: linear;
+}
