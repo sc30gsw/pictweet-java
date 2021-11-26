@@ -123,5 +123,31 @@ public class TweetController {
 
 		return "tweet/update";
 	}
+	
+	/**投稿削除機能*/
+	@PostMapping("/delete/{tweetId}/comfirm")
+	public String postDeleteTweet(@PathVariable("tweetId") Integer tweetId, Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
+		//ログインユーザー情報(ユーザー名)取得
+		String name = loginUser.getUser().getUsername();
+		model.addAttribute("username", name);
+
+		//投稿1件取得
+		MTweet tweet = tweetService.getTweetOne(tweetId);
+
+		//ログインユーザーID取得
+		Integer userId = loginUser.getUser().getUserId();
+		//投稿者のユーザーID取得
+		Integer tweetUserId = tweet.getUserId();
+
+		//ログインユーザーと投稿者が同じなら削除を実行
+		if (userId == tweetUserId) {
+			tweetService.deleteTweetOne(tweetId);
+			
+			//削除完了画面に遷移
+			return "tweet/delete";
+		}
+		
+		return "redirect:/index";
+	}
 
 }

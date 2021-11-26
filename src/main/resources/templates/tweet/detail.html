@@ -1,45 +1,51 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <title>PicTweet</title>
 <link rel="stylesheet" th:href="@{/css/header.css}">
-<link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/all.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/webjars/font-awesome/5.13.0/css/all.min.css}" />
 </head>
 <body>
 	<div layout:replace="~{layout/tweetHeader::tweetHeader}"></div>
 	<div class="contents row">
-		<form th:action="@{/detail}" th:object="${tweet}" method="post">
-			
-			<div class="content_post"
-				th:style="'background:url(' + ${tweet.imageUrl} + ');'">
-				<div class="more">
-					<span th:if="${userId == tweet.userId}"><i class="fas fa-ellipsis-v menu-icon"></i></span>
-					<ul class="more_list" th:if="${userId == tweet.userId}">
-						<li><a th:href="@{'/edit/'+${tweet.tweetId}}">編集</a></li>
-						<li><a href="#">削除</a></li>
-					</ul>
-				</div>
-				<p th:field="*{text}"></p>
-				<a href="#"> 
-					<span class="name">
-						投稿者<span th:text="${tweet.user.username}"></span>
-					</span>
-				</a>
+		<div class="content_post"
+			th:style="'background:url(' + ${tweet.imageUrl} + ');'">
+			<div class="more">
+				<span th:if="${userId == tweet.userId}"><i
+					class="fas fa-ellipsis-v menu-icon"></i></span>
+				<ul class="more_list" th:if="${userId == tweet.userId}">
+					<li><a th:href="@{'/edit/'+${tweet.tweetId}}">編集</a></li>
+					<li class="delete-list"
+						th:if="${username != null && userId == tweet.userId}">
+						<form th:action="@{'/delete/'+${tweet.tweetId}+'/comfirm'}"
+							method="post">
+							<button class="btn-delete" type="submit" name="delete">削除</button>
+						</form>
+					</li>
+				</ul>
 			</div>
-		</form>
+			<p th:field="*{text}"></p>
+			<a href="#"> <span class="name"> 投稿者<span
+					th:text="${tweet.user.username}"></span>
+			</span>
+			</a>
+		</div>
 		<div class="container">
 			<form>
 				<textarea placeholder="コメントする" rows="2"></textarea>
 				<input type="submit" value="SEND">
 			</form>
-			<strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong> 
+			<strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
 			<div class="comments">
 				<h4>＜コメント一覧＞</h4>
 				<!-- <% @comments.each do |comment| %> -->
 				<p>
-					<strong><!-- <%= link_to comment.user.nickname, "/users/#{comment.user_id}" %> -->：</strong> 
+					<strong>
+						<!-- <%= link_to comment.user.nickname, "/users/#{comment.user_id}" %> -->：
+					</strong>
 					<!--<%= comment.text %> -->
 				</p>
 			</div>

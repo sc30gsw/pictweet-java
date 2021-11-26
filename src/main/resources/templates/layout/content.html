@@ -11,12 +11,16 @@
 		<div class="content_post"
 			th:style="'background:url(' + ${tweet.imageUrl} + ');'">
 			<div class="more">
-				<span> <i class="fas fa-ellipsis-v menu-icon"></i>
+				<span><i class="fas fa-ellipsis-v menu-icon"></i>
 				</span>
 				<ul class="more_list">
 					<li><a th:href="@{'/detail/'+${tweet.tweetId}}">詳細</a></li>
 					<li th:if="${username != null && userId == tweet.userId}"><a th:href="@{'/edit/'+${tweet.tweetId}}">編集</a></li>
-					<li th:if="${username != null}"><a href="#">削除</a></li>
+					<li class="delete-list" th:if="${username != null && userId == tweet.userId}">
+						<form th:action="@{'/delete/'+${tweet.tweetId}+'/comfirm'}"  method="post">
+    						<button class="btn-delete" type="submit" name="delete">削除</button>
+    					</form>
+					</li>
 				</ul>
 			</div>
 			<p th:text="${tweet.text}"></p>

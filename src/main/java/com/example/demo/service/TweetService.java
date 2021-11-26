@@ -52,4 +52,10 @@ public class TweetService {
 		tweet.setImageUrl(form.getImageUrl());
 		tweetRepository.save(tweet);
 	}
+	
+	/**投稿削除機能*/
+	@Transactional
+	public void deleteTweetOne(Integer tweetId) {
+		tweetRepository.deleteById(tweetId);
+	}
 }
