@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.MTweet;
+import com.example.demo.form.CommentForm;
 import com.example.demo.form.TweetForm;
 import com.example.demo.service.TweetService;
 import com.example.demo.service.impl.SimpleLoginUser;
@@ -59,7 +60,7 @@ public class TweetController {
 
 	/**投稿詳細画面に遷移*/
 	@GetMapping("/detail/{tweetId}")
-	public String getTweet(@PathVariable("tweetId") Integer tweetId, Model model,
+	public String getTweet(@PathVariable("tweetId") Integer tweetId, @ModelAttribute("commentForm") CommentForm form, Model model,
 			@AuthenticationPrincipal SimpleLoginUser loginUser) {
 		//投稿1件取得
 		MTweet tweet = tweetService.getTweetOne(tweetId);
