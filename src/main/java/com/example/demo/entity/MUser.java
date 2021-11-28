@@ -45,5 +45,7 @@ public class MUser {
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
 	private List<MTweet> tweetList;
 	
-	
+	@OneToMany
+	@JoinColumn(name = "user_id", insertable = false, updatable = false)
+	private List<TComment> commentList;
 }
