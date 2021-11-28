@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,8 @@ public class TweetService {
 	
 	/**投稿全取得*/
 	public List<MTweet> findAllTweets(){
-		return tweetRepository.findAll();
+		return tweetRepository.findAll(
+				Sort.by(Sort.Direction.DESC, "createTime"));
 	}
 	
 	/**投稿取得(1件)*/
