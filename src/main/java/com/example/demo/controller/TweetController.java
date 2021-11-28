@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -13,7 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.MTweet;
+import com.example.demo.entity.TComment;
+import com.example.demo.form.CommentForm;
 import com.example.demo.form.TweetForm;
+import com.example.demo.service.CommentService;
 import com.example.demo.service.TweetService;
 import com.example.demo.service.impl.SimpleLoginUser;
 
@@ -26,6 +31,9 @@ public class TweetController {
 
 	@Autowired
 	private TweetService tweetService;
+	
+	@Autowired
+	private CommentService commentService;
 
 	/**新規投稿画面に遷移*/
 	@GetMapping("/new")
@@ -59,11 +67,15 @@ public class TweetController {
 
 	/**投稿詳細画面に遷移*/
 	@GetMapping("/detail/{tweetId}")
-	public String getTweet(@PathVariable("tweetId") Integer tweetId, Model model,
+	public String getTweet(@PathVariable("tweetId") Integer tweetId, @ModelAttribute("commentForm") CommentForm form, Model model,
 			@AuthenticationPrincipal SimpleLoginUser loginUser) {
 		//投稿1件取得
 		MTweet tweet = tweetService.getTweetOne(tweetId);
 		model.addAttribute("tweet", tweet);
+		
+		//全コメント取得
+		List <TComment> commentList = commentService.findAllComments();
+		model.addAttribute("commentList", commentList);
 
 		//ログインユーザーであればdetail.htmlに遷移
 		if (loginUser != null) {

@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,49 +9,40 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.validator.constraints.URL;
 
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "tweets")
-public class MTweet {
-	
+@Table(name= "comments")
+public class TComment {
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer tweetId;
+	private Integer commentId;
 	
-	@NotBlank
-	private String text;
-	
-	@Column(name = "image")
-	@URL
-	private String imageUrl;
+	@Column(name = "text")
+	private  String commentText;
 	
 	@Column(name = "user_id")
 	private Integer userId;
+	
+	@Column(name = "tweet_id")
+	private Integer tweetId;
 	
 	@CreationTimestamp
 	@Column(name = "created_at")
 	private LocalDateTime createTime;
 	
-	@UpdateTimestamp
-	@Column(name = "updated_at")
-	private LocalDateTime updateTime;
-	
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
 	private MUser user;
-
-	@OneToMany
-	@JoinColumn(name = "tweet_id", insertable = false, updatable = false)
-	private List<TComment> commentList;
+	
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "tweet_id", referencedColumnName = "id", insertable = false, updatable = false)
+	private MTweet tweet;
 }
