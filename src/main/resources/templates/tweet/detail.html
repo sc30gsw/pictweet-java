@@ -34,11 +34,13 @@
 			</a>
 		</div>
 		<div class="container">
-			<form>
-				<textarea placeholder="コメントする" rows="2"></textarea>
+			<form th:action="@{'/detail/'+${tweet.tweetId}+'/comment'}" th:object="${commentForm}" method="post">
+				<div class="field">
+					<textarea placeholder="コメントする" rows="2" th:field="*{commentText}" th:errorclass="is-invalid"></textarea>
+					<div class="invalid-feedback" th:errors="*{commentText}"></div>
+				</div>
 				<input type="submit" value="SEND">
 			</form>
-			<strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
 			<div class="comments">
 				<h4>＜コメント一覧＞</h4>
 				<!-- <% @comments.each do |comment| %> -->
