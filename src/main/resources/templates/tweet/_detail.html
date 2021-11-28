@@ -28,12 +28,13 @@
 				<input type="submit" value="SEND">
 			</form>
 			<strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong> 
-			<div class="comments">
+			<div class="comments" th:each="comment: ${commentList}">
 				<h4>＜コメント一覧＞</h4>
-				<!-- <% @comments.each do |comment| %> -->
 				<p>
-					<strong><!-- <%= link_to comment.user.nickname, "/users/#{comment.user_id}" %> -->：</strong> 
-					<!--<%= comment.text %> -->
+					<strong>
+						<a href="#"><sapn th:text="${comment.user.username}"></sapn></a>:
+					</strong>
+					<span th:text="${comment.commentText}"></span>
 				</p>
 			</div>
 		</div>

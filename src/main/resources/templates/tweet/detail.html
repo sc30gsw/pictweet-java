@@ -41,14 +41,13 @@
 				</div>
 				<input type="submit" value="SEND">
 			</form>
-			<div class="comments">
+			<div class="comments" th:each="comment: ${commentList}">
 				<h4>＜コメント一覧＞</h4>
-				<!-- <% @comments.each do |comment| %> -->
 				<p>
 					<strong>
-						<!-- <%= link_to comment.user.nickname, "/users/#{comment.user_id}" %> -->：
+						<a href="#"><sapn th:text="${comment.user.username}"></sapn></a>:
 					</strong>
-					<!--<%= comment.text %> -->
+					<span th:text="${comment.commentText}"></span>
 				</p>
 			</div>
 		</div>
