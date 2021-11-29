@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.entity.MTweet;
 import com.example.demo.entity.TComment;
 import com.example.demo.form.CommentForm;
+import com.example.demo.form.SearchListForm;
 import com.example.demo.form.TweetForm;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.TweetService;
@@ -168,6 +170,26 @@ public class TweetController {
 		}
 		
 		return "redirect:/index";
+	}
+	
+	/**投稿検索機能*/
+	@PostMapping("/index")
+	public String postTweetList(@ModelAttribute("searchForm") SearchListForm form, Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
+		//ログインユーザー情報(ユーザー名)取得
+		String name = loginUser.getUser().getUsername();
+		model.addAttribute("username", name);
+		
+		//ModelMapperの作成
+		ModelMapper modelMapper = new ModelMapper();
+		
+		//formをMTweetに変換
+		MTweet tweet = modelMapper.map(form, MTweet.class);
+		
+		//検索機能
+		List<MTweet> searchTweetList = tweetService.getTweets(tweet);
+		model.addAttribute("tweetList", searchTweetList);
+		
+		return "tweet/index";
 	}
 
 }
