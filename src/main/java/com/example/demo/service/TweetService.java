@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
@@ -59,5 +62,15 @@ public class TweetService {
 	@Transactional
 	public void deleteTweetOne(Integer tweetId) {
 		tweetRepository.deleteById(tweetId);
+	}
+	
+	/**投稿検索機能*/
+	public List<MTweet> getTweets(MTweet tweet) {
+		//検索条件
+		ExampleMatcher matcher = ExampleMatcher
+										.matching() //and条件
+										.withStringMatcher(StringMatcher.CONTAINING) //LIKE句
+										.withIgnoreCase(); //大文字・小文字両方
+		return tweetRepository.findAll(Example.of(tweet, matcher));
 	}
 }

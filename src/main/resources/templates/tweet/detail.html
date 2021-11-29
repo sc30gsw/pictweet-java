@@ -34,15 +34,15 @@
 			</a>
 		</div>
 		<div class="container">
-			<form th:action="@{'/detail/'+${tweet.tweetId}+'/comment'}" th:object="${commentForm}" method="post">
+			<form th:action="@{'/detail/'+${tweet.tweetId}}" th:object="${commentForm}" method="post">
 				<div class="field">
 					<textarea placeholder="コメントする" rows="2" th:field="*{commentText}" th:errorclass="is-invalid"></textarea>
 					<div class="invalid-feedback" th:errors="*{commentText}"></div>
 				</div>
 				<input type="submit" value="SEND">
 			</form>
+			<h4>＜コメント一覧＞</h4>
 			<div class="comments" th:each="comment: ${commentList}">
-				<h4>＜コメント一覧＞</h4>
 				<p>
 					<strong>
 						<a href="#"><sapn th:text="${comment.user.username}"></sapn></a>:

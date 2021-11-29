@@ -27,9 +27,9 @@
 				<textarea placeholder="コメントする" rows="2"></textarea>
 				<input type="submit" value="SEND">
 			</form>
-			<strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong> 
+			<strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
+			<h4>＜コメント一覧＞</h4> 
 			<div class="comments" th:each="comment: ${commentList}">
-				<h4>＜コメント一覧＞</h4>
 				<p>
 					<strong>
 						<a href="#"><sapn th:text="${comment.user.username}"></sapn></a>:

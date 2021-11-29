@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.MTweet;
+import com.example.demo.form.SearchListForm;
 import com.example.demo.form.SignupForm;
 import com.example.demo.service.TweetService;
 import com.example.demo.service.UserService;
@@ -34,7 +35,7 @@ public class UserController {
 	
 	/**トップページに遷移*/
 	@GetMapping("/")
-	public String getTop(Model model) {
+	public String getTop(@ModelAttribute("searchForm") SearchListForm form, Model model) {
 		
 		//全投稿取得
 		List<MTweet> tweetList = tweetService.findAllTweets();
@@ -45,7 +46,7 @@ public class UserController {
 	
 	/**ユーザー認証後のトップページに遷移*/
 	@GetMapping("/index")
-	public String getIndex(Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
+	public String getIndex(@ModelAttribute("searchForm") SearchListForm form, Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
 		//ログインユーザー情報(ユーザー名)取得
 		String name = loginUser.getUser().getUsername();
 		model.addAttribute("username", name);
@@ -69,7 +70,7 @@ public class UserController {
 	
 	/**ユーザー登録機能*/
 	@PostMapping("/signup")
-	public String postSignup(@Validated @ModelAttribute("user") SignupForm form, BindingResult result, Model model) {
+	public String postSignup(@ModelAttribute("searchForm") SearchListForm searchForm, @Validated @ModelAttribute("user") SignupForm form, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "user/signup";
 		}
@@ -99,7 +100,7 @@ public class UserController {
 	/**ログイン機能*/
 	@PostMapping("/login")
 	public String postLogin(Model model) {
-		log.info("ログアウト");
+		log.info("ログイン");
 		return "redirect:/index";
 	}
 	

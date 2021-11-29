@@ -9,9 +9,9 @@
 </head>
 <body>
 	<div layout:replace="~{layout/header::header}"></div>
-	<form class="search-form" action="#">
+	<form class="search-form" th:action="@{/index}" th:object="${searchForm}" method="post">
 		<input placeholder="投稿を検索する" class="search-input" type="text"
-			name="keyword" id="keyword"> <input type="submit"
+			th:field="*{text}"> <input type="submit"
 			name="commit" value="検索" class="search-btn">
 	</form>
 	<div layout:replace="~{layout/content::content}"></div>
