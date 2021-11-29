@@ -27,7 +27,7 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 
-	@PostMapping("/detail/{tweetId}/comment")
+	@PostMapping("/detail/{tweetId}")
 	public String postComment(@PathVariable("tweetId") Integer tweetId,
 			@Validated @ModelAttribute("commentForm") CommentForm form, BindingResult result, Model model,
 			@AuthenticationPrincipal SimpleLoginUser loginUser) {
@@ -49,6 +49,6 @@ public class CommentController {
 		//投稿機能
 		commentService.setComment(form, loginUser, tweetId);
 
-		return "tweet/detail";
+		return "redirect:/detail/{tweetId}";
 	}
 }
