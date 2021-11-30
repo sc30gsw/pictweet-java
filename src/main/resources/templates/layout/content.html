@@ -24,7 +24,7 @@
 				</ul>
 			</div>
 			<p th:text="${tweet.text}"></p>
-			<a href="#"> <span class="name"> 投稿者<span
+			<a th:href="@{'/detail/user/'+${tweet.userId}}"> <span class="name"> 投稿者<span
 					th:text="${tweet.user.username}"></span>
 			</span>
 			</a>

@@ -10,10 +10,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.MTweet;
+import com.example.demo.entity.MUser;
 import com.example.demo.form.SearchListForm;
 import com.example.demo.form.SignupForm;
 import com.example.demo.service.TweetService;
@@ -102,6 +104,38 @@ public class UserController {
 	public String postLogin(Model model) {
 		log.info("ログイン");
 		return "redirect:/index";
+	}
+	
+	/**ユーザー詳細画面に遷移*/
+	@GetMapping("/detail/user/{userId}")
+	public String getTweet(@PathVariable("userId") Integer userId, Model model,
+			@AuthenticationPrincipal SimpleLoginUser loginUser) {
+		//ログインユーザーであればdetail.htmlに遷移
+		if (loginUser != null) {
+			//ログインユーザー情報(ユーザー名)取得
+			String name = loginUser.getUser().getUsername();
+			model.addAttribute("username", name);
+			
+			//ユーザー1件取得
+			MUser user= userService.getUserOne(userId);
+			model.addAttribute("user", user);
+			
+			//投稿者の全投稿取得
+			List<MTweet> tweetList = user.getTweetList();
+			model.addAttribute("tweetList", tweetList);
+			
+			return "user/detail";
+		}
+
+		//ユーザー1件取得
+		MUser user= userService.getUserOne(userId);
+		model.addAttribute("user", user);
+		
+		//投稿者の全投稿取得
+		List<MTweet> tweetList = user.getTweetList();
+		model.addAttribute("tweetList", tweetList);
+		
+		return "user/_detail";
 	}
 	
 }
