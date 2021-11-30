@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>pictweet</title>
+<link rel="stylesheet" th:href="@{/css/header.css}">
+<link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/all.min.css}"/>
+</head>
+<body>
+	<div layout:replace="~{layout/header::header}"></div>
+	<p class="mypage-name" th:text="${user.username}+'さんの投稿一覧'"></p>
+	<div layout:replace="~{layout/content::content}"></div>
+	<div layout:replace="~{layout/footer::footer}"></div>
+</body>
+</html>
