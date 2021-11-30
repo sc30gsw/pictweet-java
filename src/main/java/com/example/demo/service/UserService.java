@@ -37,4 +37,12 @@ public class UserService {
 	public Optional<MUser> findByEmail(String email) {		
 		return userRepository.findByEmail(email);
 	}
+	
+	/**ユーザー取得(1件)*/
+	public MUser getUserOne(Integer userId) {
+		Optional<MUser> option = userRepository.findById(userId);
+		MUser user = option.orElse(null);
+		
+		return user;
+	}
 }
