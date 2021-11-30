@@ -14,7 +14,7 @@
 			<div class="user_nav grid-6">
 				<span><p class="header-username" th:text="${username}"></p>
 					<ul class="user__info">
-						<li><a href="#">マイページ</a>
+						<li><a th:href="@{'/detail/user/'+${userId}}">マイページ</a>
 							<form th:action="@{/logout}" method="post">
 								<button type="submit" class="logout-btn">ログアウト</button>
 							</form></li>
