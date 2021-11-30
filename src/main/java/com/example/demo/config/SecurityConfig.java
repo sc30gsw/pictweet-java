@@ -56,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.usernameParameter("email")
 				.passwordParameter("password")
 				.defaultSuccessUrl("/index", true);//ログイン成功時の遷移先の指定
+		
 		//ログアウト処理
 		http
 			.logout()
@@ -63,7 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutUrl("/logout")
 				.logoutSuccessUrl("/login?logout");
 				
-		
+		http
+			.rememberMe();
 	}
 	
 	/**認証の設定*/
