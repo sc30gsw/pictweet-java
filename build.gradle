@@ -4,9 +4,19 @@ plugins {
 	id 'java'
 }
 
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
 group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+version = '1.0'
 sourceCompatibility = '11'
+
+jar {
+    manifest {
+        attributes 'PictweetJavaApplication-Class': 'com.example.demo.PictweetJavaApplication'
+    }
+}
 
 configurations {
 	compileOnly {
