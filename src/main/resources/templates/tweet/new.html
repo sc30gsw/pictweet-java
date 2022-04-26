@@ -5,12 +5,13 @@
 <meta charset="UTF-8">
 <title>PicTweet</title>
 <link rel="stylesheet" th:href="@{/css/header.css}">
+<script th:src="@{/js/main.js}"></script>
 </head>
 <body>
 	<div layout:replace="~{layout/tweetHeader::tweetHeader}"></div>
-	<div class="contents row">
+	<div class="contents row"  id="row">
 		<div class="container">
-			<form th:action="@{/comfirm}" th:object="${tweetForm}" method="post">
+			<form th:action="@{/comfirm}" th:object="${tweetForm}" method="post" id="form">
 				<h3>投稿する</h3>
 				<div class="field">
 					<input placeholder="Image Url" type="text" th:field="*{imageUrl}" th:errorclass="is-invalid">
@@ -21,7 +22,7 @@
 						th:errorclass="is-invalid"></textarea>
 					<div class="invalid-feedback" th:errors="*{text}"></div>
 				</div>
-				<input type="submit" name="commit" value="SEND">
+				<input type="submit" name="commit" value="SEND" id="send">
 			</form>
 		</div>
 	</div>
