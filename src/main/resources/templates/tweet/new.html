@@ -14,13 +14,12 @@
 			<form th:action="@{/comfirm}" th:object="${tweetForm}" method="post" id="form">
 				<h3>投稿する</h3>
 				<div class="field">
-					<input placeholder="Image Url" type="text" th:field="*{imageUrl}" th:errorclass="is-invalid">
-					<div class="invalid-feedback" th:errors="*{imageUrl}"></div>
+					<input placeholder="Image Url" type="text" th:field="*{imageUrl}">
+					<div class="invalid-feedback-image" style="display: none; color: red;">imageはURL形式で入力してください</div>
 				</div>
 				<div class="field">
-					<textarea placeholder="text" rows="10" th:field="*{text}"
-						th:errorclass="is-invalid"></textarea>
-					<div class="invalid-feedback" th:errors="*{text}"></div>
+					<textarea placeholder="text" rows="10" th:field="*{text}"></textarea>
+					<div class="invalid-feedback" style="display: none; color: red;">textは必須入力です</div>
 				</div>
 				<input type="submit" name="commit" value="SEND" id="send">
 			</form>
