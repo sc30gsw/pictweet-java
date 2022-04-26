@@ -36,7 +36,7 @@ public class TweetController {
 
 	@Autowired
 	private TweetService tweetService;
-	
+
 	@Autowired
 	private CommentService commentService;
 
@@ -51,35 +51,17 @@ public class TweetController {
 		return "tweet/new";
 	}
 
-	/**投稿機能*/
-	@PostMapping("/comfirm")
-	public String postNew(@Validated @ModelAttribute("tweetForm") TweetForm form, BindingResult result, Model model,
-			@AuthenticationPrincipal SimpleLoginUser loginUser) {
-		//ログインユーザー情報(ユーザー名)取得
-		String name = loginUser.getUser().getUsername();
-		model.addAttribute("username", name);
-
-		//formのバリデーションチェック
-		if (result.hasErrors()) {
-			return "tweet/new";
-		}
-
-		//投稿機能
-		tweetService.setTweet(form, loginUser);
-
-		return "tweet/comfirm";
-	}
-
 	/**投稿詳細画面に遷移*/
 	@GetMapping("/detail/{tweetId}")
-	public String getTweet(@PathVariable("tweetId") Integer tweetId, @ModelAttribute("commentForm") CommentForm form, Model model,
+	public String getTweet(@PathVariable("tweetId") Integer tweetId, @ModelAttribute("commentForm") CommentForm form,
+			Model model,
 			@AuthenticationPrincipal SimpleLoginUser loginUser) {
 		//投稿1件取得
 		MTweet tweet = tweetService.getTweetOne(tweetId);
 		model.addAttribute("tweet", tweet);
-		
+
 		//全コメント取得
-		List <TComment> commentList = commentService.findAllComments();
+		List<TComment> commentList = commentService.findAllComments();
 		model.addAttribute("commentList", commentList);
 
 		//ログインユーザーであればdetail.htmlに遷移
@@ -144,14 +126,14 @@ public class TweetController {
 		} catch (Exception e) {
 			log.error("投稿更新でエラー");
 		}
-		
 
 		return "tweet/update";
 	}
-	
+
 	/**投稿削除機能*/
 	@PostMapping("/delete/{tweetId}/comfirm")
-	public String postDeleteTweet(@PathVariable("tweetId") Integer tweetId, Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
+	public String postDeleteTweet(@PathVariable("tweetId") Integer tweetId, Model model,
+			@AuthenticationPrincipal SimpleLoginUser loginUser) {
 		//ログインユーザー情報(ユーザー名)取得
 		String name = loginUser.getUser().getUsername();
 		model.addAttribute("username", name);
@@ -167,63 +149,64 @@ public class TweetController {
 		//ログインユーザーと投稿者が同じなら削除を実行
 		if (userId == tweetUserId) {
 			tweetService.deleteTweetOne(tweetId);
-			
+
 			//削除完了画面に遷移
 			return "tweet/delete";
 		}
-		
+
 		return "redirect:/index";
 	}
-	
+
 	/**投稿検索機能*/
 	@PostMapping("/index")
-	public String postTweetList(@ModelAttribute("searchForm") SearchListForm form, Model model, @AuthenticationPrincipal SimpleLoginUser loginUser) {
+	public String postTweetList(@ModelAttribute("searchForm") SearchListForm form, Model model,
+			@AuthenticationPrincipal SimpleLoginUser loginUser) {
 		//ログインユーザー情報(ユーザー名)取得
 		String name = loginUser.getUser().getUsername();
 		model.addAttribute("username", name);
-		
+
 		//ModelMapperの作成
 		ModelMapper modelMapper = new ModelMapper();
-		
+
 		//formをMTweetに変換
 		MTweet tweet = modelMapper.map(form, MTweet.class);
-		
+
 		//検索機能
 		List<MTweet> searchTweetList = tweetService.getTweets(tweet);
 		model.addAttribute("tweetList", searchTweetList);
-		
+
 		return "tweet/index";
 	}
-	
+
 	/**データベース関連の例外処理*/
 	@ExceptionHandler(DataAccessException.class)
 	public String dataAccessExceptionHandler(DataAccessException e, Model model) {
-		
+
 		//空文字をセット
 		model.addAttribute("error", "");
-		
+
 		//Modelにメッセージを登録
 		model.addAttribute("message", "TweetControllerで例外が発生しました");
-		
+
 		//HTTPのエラーコード(500)をModelに登録
 		model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);
-		
+
 		return "error";
 	}
-	
+
 	/**その他の例外処理*/
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e, Model model) {
-		
+
 		//空文字をセット
 		model.addAttribute("error", "");
-		
+
 		//Modelにメッセージを登録
 		model.addAttribute("message", "TweetControllerで例外が発生しました");
-		
+
 		//HTTPのエラーコード(500)をModelに登録
 		model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);
-		
+
 		return "error";
 	}
 
